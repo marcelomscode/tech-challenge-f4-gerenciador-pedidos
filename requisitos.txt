@@ -6,6 +6,26 @@ rastreamento das entregas em tempo real. A função inclui calcular as rotas mai
 eficientes, estimar tempos de entrega e fornecer atualizações de status aos
 clientes.
 
+
+Rotas de Entrega: o sistema deve ter 1 endpoint que receba um cep (ou parte dele) e agrupe pedidos pendentes de entrega pelo CEP recebido.
+    Retornando esses pedidos (ids) como resposta.
+    8.1 - Infos sobre CEP: https://www.correios.com.br/enviar/precisa-de-ajuda/tudo-sobre-cep
+
+    8.2 - Opcional: Se quiserem fazer uma solução mais robusta integrando com google maps ou outro equivalente, fiquem a vontade.
+        Documentação: façam uma boa documentação pois ela será o guia na avaliação. Sugiro que façam um vídeo (de 10 min) apresentando os pontos implementados,
+        debitos técnicos, etc
+        Avaliação: O avaliador além "buildar" e "rodar" a aplicação, irá certificar todo código implementado (como se fosse um code-review).
+    10.1 - Então o mais importante não são as regras perfeitamente codadas (aceitamos alguns bugs e debitos técnicos),
+        mas sim a boa pratica e correto uso dos frameworks.
+        Todos os requsitos aqui citados ou existente no TC serão repassados nas Lives e nos Grupos de Estudos.
+         Além disso estarei disponivel no Discord praticamente todos os dias. Se tiverem dúvidas ou travas me procure.
+
+Rastreamento de Pedidos: O sistema deve ter 1 endpoint que receba a latitude e longitude (e mais alguns outros dados como id do pedido, etc)
+        que irá armazenar essa info no database.
+        7.1 - Opcional: Se quiserem fazer uma solução mais robusta integrando com google maps ou outro equivalente, fiquem a vontade.
+
+
+
 Tecnologias e Abordagens:
 •Spring Boot para a base do microsserviço.
 •Spring Data JPA para persistência de dados.
