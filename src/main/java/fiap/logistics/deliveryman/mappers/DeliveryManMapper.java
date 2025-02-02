@@ -20,7 +20,6 @@ public class DeliveryManMapper {
                 .build();
     }
 
-
     public static DeliveryManDomain toDomain(DeliveryManDTO deliveryManDTO) {
         return DeliveryManDomain.builder()
                 .id(deliveryManDTO.getId())

@@ -27,7 +27,7 @@ public class FilaConsumer {
             PedidoJson pedido = objectMapper.readValue(mensagem, PedidoJson.class);
             log.info("Mensagem recebida: {} ", pedido.getEndereco());
         } catch (JsonProcessingException e) {
-            log.error("Erro ao processar mensagem: {}", e.getMessage());
+            log.error("Erro ao processar mensagem  da fila QUEUE_PEDIDO_PARA_ENTREGA, erro: {}", e.getMessage());
             throw e;
         }
     }
