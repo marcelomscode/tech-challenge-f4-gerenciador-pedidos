@@ -17,4 +17,9 @@ public class Pedido {
     private String dataCompra;
     private String previsaoDataEntrega;
     private String status;
+    private String latitude;
+    private String longitude;
+    private String bairro;
+    private String cidade;
+
 }

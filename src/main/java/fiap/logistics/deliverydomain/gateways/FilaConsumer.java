@@ -165,17 +165,6 @@ public class FilaConsumer {
         log.info("Mensagem recebida: {} ", mensagem);
     }
 
-//
-//    {
-//        "descricao":"Pedido de teste via evento",
-//        "cep":"0899020",
-//        "endereco":"Rua teste",
-//        "dataCompra":"2023-03-30",
-//        "previsaoDataEntrega":"2023-04-01",
-//        "status":"PENDENTE"
-
-//    }
-
 }
 
 
