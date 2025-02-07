@@ -18,15 +18,15 @@ public class DeliveryManService {
         this.deliveryManPersistenceService = deliveryManPersistenceService;
     }
 
-    public void saveDeliveryMan(DeliveryManDTO deliveryManDTO) {
-        try {
-            log.info("Saving DeliveryMan");
-            deliveryManPersistenceService.saveDeliveryMan(DeliveryManMapper.toDomain(deliveryManDTO));
-            log.info("DeliveryMan saved");
-        } catch (DeliveryManException e) {
-            log.error("Error saving DeliveryMan", e);
-        }
-    }
+//    public void saveDeliveryMan(DeliveryManDTO deliveryManDTO) {
+//        try {
+//            log.info("Saving DeliveryMan");
+//            deliveryManPersistenceService.saveDeliveryMan(DeliveryManMapper.toDomain(deliveryManDTO));
+//            log.info("DeliveryMan saved");
+//        } catch (DeliveryManException e) {
+//            log.error("Error saving DeliveryMan", e);
+//        }
+//    }
 
     public DeliveryManDTO getDeliveryMan(Long id) {
         log.info("Getting DeliveryMan");

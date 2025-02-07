@@ -1,39 +1,35 @@
-package fiap.logistics.deliveryman.services;
+package fiap.logistics.deliveryman.usecase;
 
 import fiap.logistics.deliveryman.dto.DeliveryManDTO;
 import fiap.logistics.deliveryman.entitydomain.DeliveryManDomain;
-import fiap.logistics.deliveryman.entitypersistence.DeliveryManPersistence;
 import fiap.logistics.deliveryman.exceptions.DeliveryManException;
 import fiap.logistics.deliveryman.mappers.DeliveryManMapper;
-import fiap.logistics.deliveryman.repository.DeliveryManRepositoryImpl;
+import fiap.logistics.deliveryman.repository.ManRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
-public class DeliveryManPersistenceService {
+@Slf4j
+@Service
+@AllArgsConstructor
+public class DeliveryManUseCase {
 
-    private final DeliveryManRepositoryImpl deliveryManRepository;
-
-    public DeliveryManPersistenceService(DeliveryManRepositoryImpl deliveryManRepository) {
-        this.deliveryManRepository = deliveryManRepository;
-    }
+    private final ManRepository manRepository;
 
     public void saveDeliveryMan(DeliveryManDomain deliveryMan) {
-
         try {
-            deliveryManRepository.save(DeliveryManMapper.toPersistence(deliveryMan));
+            manRepository.save(DeliveryManMapper.toPersistence(deliveryMan));
         } catch (DeliveryManException e) {
             throw new DeliveryManException("Error saving DeliveryMan", HttpStatus.BAD_REQUEST);
         }
-
     }
 
     public DeliveryManDTO getDeliveryMan(Long id) {
         try {
-            DeliveryManPersistence deliveryManPersistence = deliveryManRepository.findById(id);
-            return DeliveryManMapper.toDTOFromPersistence(deliveryManPersistence);
+            return DeliveryManMapper.toDTOFromPersistence(manRepository.findById(id));
         } catch (DeliveryManException e) {
             throw new DeliveryManException("Error getting DeliveryMan", HttpStatus.BAD_REQUEST);
         }
@@ -41,8 +37,7 @@ public class DeliveryManPersistenceService {
 
     public List<DeliveryManDTO> getAllDeliveryMan() {
         try {
-            List<DeliveryManPersistence> deliveryManPersistence = deliveryManRepository.findAll();
-            return deliveryManPersistence.stream().map(DeliveryManMapper::toDTOFromPersistence).toList();
+            return manRepository.findAll().stream().map(DeliveryManMapper::fromPersistenceToDTO).toList();
         } catch (DeliveryManException e) {
             throw new DeliveryManException("Error getting DeliveryMan", HttpStatus.BAD_REQUEST);
         }

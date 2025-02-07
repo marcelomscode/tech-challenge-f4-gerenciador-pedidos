@@ -1,7 +1,10 @@
 package fiap.logistics.deliveryman.controllers;
 
 import fiap.logistics.deliveryman.dto.DeliveryManDTO;
+import fiap.logistics.deliveryman.entitydomain.DeliveryManDomain;
 import fiap.logistics.deliveryman.services.DeliveryManService;
+import fiap.logistics.deliveryman.usecase.DeliveryManUseCase;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,26 +14,27 @@ import java.util.List;
 @RequestMapping("/deliveryman")
 public class DeliveryManController {
 
-    private final DeliveryManService deliveryManService;
+    private final DeliveryManUseCase deliveryManUseCase;
 
-    public DeliveryManController(DeliveryManService deliveryManService) {
-        this.deliveryManService = deliveryManService;
+    public DeliveryManController(DeliveryManUseCase deliveryManUseCase) {
+        this.deliveryManUseCase = deliveryManUseCase;
     }
 
-    @PostMapping
-    public ResponseEntity<String> saveDeliveryMan(@RequestBody DeliveryManDTO deliveryManDTO) {
-        deliveryManService.saveDeliveryMan(deliveryManDTO);
-        return ResponseEntity.ok("DeliveryMan saved");
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping()
+    public String saveDeliveryManUseCase(@RequestBody DeliveryManDTO deliveryManDTO) {
+        deliveryManUseCase.saveDeliveryMan(DeliveryManDomain.builder().name(deliveryManDTO.getName()).build());
+        return "DeliveryMan saved";
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<DeliveryManDTO> getDeliveryMan(@PathVariable Long id) {
-        return ResponseEntity.ok(deliveryManService.getDeliveryMan(id));
+        return ResponseEntity.ok(deliveryManUseCase.getDeliveryMan(id));
     }
 
     @GetMapping
     public ResponseEntity<List<DeliveryManDTO>> getAllDeliveryMan() {
-        return ResponseEntity.ok(deliveryManService.getAllDeliveryMan());
+        return ResponseEntity.ok(deliveryManUseCase.getAllDeliveryMan());
     }
 
 }
