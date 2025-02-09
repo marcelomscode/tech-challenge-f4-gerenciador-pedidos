@@ -24,8 +24,6 @@ Rastreamento de Pedidos: O sistema deve ter 1 endpoint que receba a latitude e l
         que irá armazenar essa info no database.
         7.1 - Opcional: Se quiserem fazer uma solução mais robusta integrando com google maps ou outro equivalente, fiquem a vontade.
 
-
-
 Tecnologias e Abordagens:
 •Spring Boot para a base do microsserviço.
 •Spring Data JPA para persistência de dados.

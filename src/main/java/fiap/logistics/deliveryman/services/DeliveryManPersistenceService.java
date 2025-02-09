@@ -7,11 +7,11 @@ import fiap.logistics.deliveryman.exceptions.DeliveryManException;
 import fiap.logistics.deliveryman.mappers.DeliveryManMapper;
 import fiap.logistics.deliveryman.repository.DeliveryManRepositoryImpl;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class DeliveryManPersistenceService {
 
     private final DeliveryManRepositoryImpl deliveryManRepository;

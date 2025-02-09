@@ -4,12 +4,11 @@ import fiap.logistics.deliveryman.dto.DeliveryManDTO;
 import fiap.logistics.deliveryman.entitydomain.DeliveryManDomain;
 import fiap.logistics.deliveryman.exceptions.DeliveryManException;
 import fiap.logistics.deliveryman.mappers.DeliveryManMapper;
-import fiap.logistics.deliveryman.repository.ManRepository;
+import fiap.logistics.deliveryman.repository.DeliveryManRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Slf4j
@@ -17,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DeliveryManUseCase {
 
-    private final ManRepository manRepository;
+    private final DeliveryManRepository manRepository;
 
     public void saveDeliveryMan(DeliveryManDomain deliveryMan) {
         try {
