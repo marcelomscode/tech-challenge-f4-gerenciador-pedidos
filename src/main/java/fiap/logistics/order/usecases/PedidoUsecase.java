@@ -26,16 +26,12 @@ public class PedidoUsecase {
 
         Order pedidoSalvo = new Order();
         pedidoSalvo.setNumeroPedido(pedido.getNumeroPedido());
-//      pedidoSalvo.setDescricao(pedido.getDescricao());
         pedidoSalvo.setCep(pedido.getCep());
         pedidoSalvo.setEndereco(pedido.getEndereco());
-//      pedidoSalvo.setBairro(pedido.getBairro());
-//      pedidoSalvo.setCidade(pedido.getCidade());
-//      pedidoSalvo.setDataCompra(pedido.getDataCompra());
         pedidoSalvo.setPrevisaoDataEntrega(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(pedido.getPrevisaoDataEntrega(), LocalDate::from));
         pedidoSalvo.setStatus(EstadoPedido.PENDENTE.getId());
 
-        log.info("Salvando pedido: {}", pedido.getDescricao());
+        log.info("Salvando pedido número: {}", pedido.getNumeroPedido());
         pedidoGateway.save(pedidoSalvo);
 
         return pedidoSalvo;
@@ -57,6 +53,10 @@ public class PedidoUsecase {
                 .bairro(resposta.getBairro())
                 .cidade(resposta.getCidade().getNome())
                 .build();
+    }
+
+    public Order findByNumeroPedido(Long id) {
+        return pedidoGateway.findByNumeroPedido(id);
     }
 
 }

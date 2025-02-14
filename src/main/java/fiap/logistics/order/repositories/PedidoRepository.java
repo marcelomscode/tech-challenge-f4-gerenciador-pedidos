@@ -6,5 +6,6 @@ public interface PedidoRepository {
 
     void save(Order pedido );
     void atualizaStatusPedido(Long idPedido, Integer status);
+    Order findByNumeroPedido(Long idPedido);
 
 }

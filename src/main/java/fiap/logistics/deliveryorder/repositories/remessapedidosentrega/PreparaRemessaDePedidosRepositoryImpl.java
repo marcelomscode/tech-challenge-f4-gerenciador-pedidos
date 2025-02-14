@@ -7,12 +7,11 @@ import fiap.logistics.deliveryorder.entities.persistences.RemessaPersistence;
 import fiap.logistics.deliveryorder.repositories.db.remessapedidosentregajparepository.RemessaJpaRepository;
 import fiap.logistics.deliveryorder.repositories.db.remessapedidosentregajparepository.RemessaPedidosEntregaJpaRepository;
 import fiap.logistics.deliveryorder.services.DeliveryService;
-import fiap.logistics.deliveryorder.usecases.preparapedidosentrega.PreparaPedidosParaEntregaUseCase;
 import fiap.logistics.order.entities.persistence.Order;
 import fiap.logistics.order.repositories.PedidoRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,30 +19,25 @@ import java.util.List;
 
 @Slf4j
 @Repository
+@RequiredArgsConstructor
 public class PreparaRemessaDePedidosRepositoryImpl implements PreparaRemessaDePedidosRepository {
 
     private final RemessaPedidosEntregaJpaRepository repository;
-    private final PreparaPedidosParaEntregaUseCase preparaPedidosParaEntregaUseCase;
     private final RemessaJpaRepository remessaJpaRepository;
     private final DeliveryService deliveryService;
     private final PedidoRepository pedidoRepository;
 
-
-
     private static final String CEP_ORIGEM = "08450-120";
 
-
-    public PreparaRemessaDePedidosRepositoryImpl(RemessaPedidosEntregaJpaRepository repository,
-                                                 PreparaPedidosParaEntregaUseCase preparaPedidosParaEntregaUseCase,
-                                                 RemessaJpaRepository remessaJpaRepository,
-                                                 DeliveryService deliveryService,
-                                                 PedidoRepository pedidoRepository) {
-        this.repository = repository;
-        this.preparaPedidosParaEntregaUseCase = preparaPedidosParaEntregaUseCase;
-        this.remessaJpaRepository = remessaJpaRepository;
-        this.deliveryService = deliveryService;
-        this.pedidoRepository = pedidoRepository;
-    }
+//    public PreparaRemessaDePedidosRepositoryImpl(RemessaPedidosEntregaJpaRepository repository,
+//                                                 RemessaJpaRepository remessaJpaRepository,
+//                                                 DeliveryService deliveryService,
+//                                                 PedidoRepository pedidoRepository) {
+//        this.repository = repository;
+//        this.remessaJpaRepository = remessaJpaRepository;
+//        this.deliveryService = deliveryService;
+//        this.pedidoRepository = pedidoRepository;
+//    }
 
     @Override
     public void preparaRemessaPedidoParaEntregar(LocalDate dataParaEntrega) {
@@ -80,8 +74,8 @@ public class PreparaRemessaDePedidosRepositoryImpl implements PreparaRemessaDePe
         return pedidos;
     }
 
+    @Override
     public void salvaListaRemessa(List<Order> pedidos) throws InterruptedException {
-
 
         int tamanhoLote = 20;
 
@@ -114,9 +108,9 @@ public class PreparaRemessaDePedidosRepositoryImpl implements PreparaRemessaDePe
                 }
             }
             idRemessa = getGeraNumeroRemessa();
-            log.info("INICIO atualiza status do pedido para 'Em preparação para entrega'");
-            pedidoRepository.atualizaStatusPedido(pedidos.get(i).getId(), StatusRemessa.EM_PREPARACAO_PARA_ENTREGA.getId());
-            log.info("FIM atualiza status do pedido para 'Em preparação para entrega'");
+            log.info("INICIO atualiza status do pedido para 'Aguardando Entrega'");
+            pedidoRepository.atualizaStatusPedido(pedidos.get(i).getId(), StatusRemessa.AGUARDANDO_ENTREGA.getId());
+            log.info("FIM atualiza status do pedido para 'Aguardando Entrega'");
 
         }
     }
@@ -134,6 +128,7 @@ public class PreparaRemessaDePedidosRepositoryImpl implements PreparaRemessaDePe
                 .build();
 
         remessaJpaRepository.save(remessaPersistence);
+
     }
 
 }

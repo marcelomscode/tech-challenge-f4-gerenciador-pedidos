@@ -13,16 +13,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CriaRemessaPedidosUseCase {
 
+    private final PreparaRemessaDePedidosRepository preparaPedidoEntregaRepository;
+    private final DeliveryService deliveryService;
 
-        private final PreparaRemessaDePedidosRepository preparaPedidoEntregaRepository;
-        private final DeliveryService deliveryService;
-
-
-        public void criaRemessaPedidos() {
-            log.info("Criando remessa de pedidos");
-            preparaPedidoEntregaRepository.preparaRemessaPedidoParaEntregar(LocalDate.now());
-        }
-
-
+    public void criaRemessaPedidos() {
+        log.info("Criando remessa de pedidos");
+        preparaPedidoEntregaRepository.preparaRemessaPedidoParaEntregar(LocalDate.now());
+    }
 
 }

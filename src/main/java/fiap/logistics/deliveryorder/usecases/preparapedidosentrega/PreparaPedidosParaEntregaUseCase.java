@@ -1,6 +1,5 @@
 package fiap.logistics.deliveryorder.usecases.preparapedidosentrega;
 
-import fiap.logistics.deliveryorder.repositories.remessapedidosentrega.PreparaRemessaDePedidosRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

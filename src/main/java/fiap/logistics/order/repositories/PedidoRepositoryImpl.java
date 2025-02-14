@@ -1,10 +1,16 @@
 package fiap.logistics.order.repositories;
 
+import fiap.logistics.configuration.DatabaseException;
+import fiap.logistics.deliveryman.exceptions.DeliveryManException;
 import fiap.logistics.order.dto.enums.EstadoPedido;
 import fiap.logistics.order.entities.persistence.Order;
 import fiap.logistics.order.repositories.db.PedidoJpaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ServerErrorException;
 
 @Slf4j
 @Repository
@@ -37,4 +43,20 @@ public class PedidoRepositoryImpl implements PedidoRepository {
         }
 
     }
+
+    @Override
+    public Order findByNumeroPedido(Long idPedido) {
+
+        try {
+            var pedido = pedidoJpaRepository.getByNumeroPedido(idPedido);
+            if (pedido == null) {
+                throw new EntityNotFoundException("Pedido nao encontrado com o id: " + idPedido);
+            }
+            return pedidoJpaRepository.getByNumeroPedido(idPedido);
+        } catch (ServerErrorException e) {
+            throw new DatabaseException("Ocorreu um erro ao buscar o pedido com o id: " + idPedido, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
 }

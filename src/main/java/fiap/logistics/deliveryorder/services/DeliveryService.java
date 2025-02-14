@@ -15,6 +15,8 @@ import java.util.stream.IntStream;
 @Service
 public class DeliveryService {
 
+    //TODO CRIAR UM ADAPTADOR PARA ESSA CLASSE IMPLEMENTANDO A PORTA
+
     private final GoogleMapsClient googleMapsClient;
 
     public DeliveryService(GoogleMapsClient googleMapsClient) {
