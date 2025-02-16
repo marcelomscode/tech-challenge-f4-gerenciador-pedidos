@@ -10,7 +10,8 @@ public enum EstadoPedido {
     PENDENTE(1, "Pendente"),
     EM_PREPARACAO_PARA_ENTREGA(2, "Em preparação para entrega"),
     SAIU_PARA_ENTREGA(3, "Saiu para entrega"),
-    CANCELADO(4, "Cancelado");
+    CANCELADO(4, "Cancelado"),
+    ENTREGUE(5, "Entregue");
 
     private final int id;
     private final String descricao;

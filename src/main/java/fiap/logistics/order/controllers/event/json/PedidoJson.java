@@ -7,13 +7,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PedidoJson {
 
-    private Long numeroPedido;
-    private String descricao;
-    private String endereco;
-    private String cep;
-    private String bairro;
-    private String cidade;
-    private String dataCompra;
-    private String previsaoDataEntrega;
+    private String orderNumber;
+    private String address;
+    private String houseNumber;
+    private String postalCode;
+    private String estimatedDeliveryDate;
+    private int status;
 
 }

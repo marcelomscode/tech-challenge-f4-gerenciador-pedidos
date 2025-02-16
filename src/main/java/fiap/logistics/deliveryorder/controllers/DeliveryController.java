@@ -1,25 +1,23 @@
 package fiap.logistics.deliveryorder.controllers;
 
 import fiap.logistics.deliveryorder.entities.domain.DeliveryInfo;
-import fiap.logistics.deliveryorder.repositories.remessapedidosentrega.PreparaRemessaDePedidosRepositoryImpl;
+import fiap.logistics.deliveryorder.repositories.remessapedidosentrega.PreparaRemessaDePedidosRepositoryImplRefatorar;
 import fiap.logistics.deliveryorder.services.DeliveryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import fiap.logistics.entregador.exceptions.DeliveryManException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
-@RequestMapping("/delivery")
+@RequestMapping("deliverydelivery")
 public class DeliveryController {
 
-    private final PreparaRemessaDePedidosRepositoryImpl remessaPedidoEntregaRepositoryImpl;
+    private final PreparaRemessaDePedidosRepositoryImplRefatorar remessaPedidoEntregaRepositoryImpl;
     private final DeliveryService deliveryService;
 
-    public DeliveryController(DeliveryService deliveryService, PreparaRemessaDePedidosRepositoryImpl remessaPedidoEntregaRepositoryImpl) {
+    public DeliveryController(DeliveryService deliveryService, PreparaRemessaDePedidosRepositoryImplRefatorar remessaPedidoEntregaRepositoryImpl) {
         this.deliveryService = deliveryService;
         this.remessaPedidoEntregaRepositoryImpl = remessaPedidoEntregaRepositoryImpl;
     }
@@ -38,5 +36,16 @@ public class DeliveryController {
         return "Teste";
     }
 
+    @GetMapping("/exceptions/{id}")
+    public String exceptions(@PathVariable Long id) {
+
+        int numero = 1;
+
+        if(numero == 1){
+            throw new DeliveryManException("Erro ao buscar entregador", HttpStatus.NOT_FOUND);
+        }
+
+        return "Teste";
+    }
 
 }

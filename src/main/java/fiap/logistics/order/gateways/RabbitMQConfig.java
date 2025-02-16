@@ -7,13 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String QUEUE_NAME = "minha.fila";
-    public static final String QUEUE_PEDIDO_PARA_ENTREGA = "pedido.entrega";
-
-    @Bean
-    public Queue minhaFila() {
-        return new Queue(QUEUE_NAME, false);
-    }
+    public static final String QUEUE_PEDIDO_PARA_ENTREGA = "q-ms-logistics-order";
 
     @Bean
     public Queue pedidoParaEntrega() {

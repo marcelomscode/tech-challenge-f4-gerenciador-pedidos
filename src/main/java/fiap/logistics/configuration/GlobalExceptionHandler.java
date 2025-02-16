@@ -1,6 +1,6 @@
 package fiap.logistics.configuration;
 
-import fiap.logistics.deliveryman.exceptions.DeliveryManException;
+import fiap.logistics.entregador.exceptions.DeliveryManException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +12,22 @@ import org.springframework.web.bind.annotation.*;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    @ExceptionHandler(Throwable.class)
+//    @ResponseBody
+//    public DeliveryManException genericError(final Throwable e) {
+//        log.error(e.getMessage(), e);
+//        return new DeliveryManException(e.getMessage(), HttpStatus.NOT_FOUND);
+//    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(Throwable.class)
     @ResponseBody
-    public DeliveryManException genericError(final Throwable e) {
+    public ErrorResponse genericError(final Throwable e) {
         log.error(e.getMessage(), e);
-        return new DeliveryManException(e.getMessage(), HttpStatus.NOT_FOUND);
+        return new ErrorResponse(e.getMessage(), HttpStatus.NOT_FOUND.value());
     }
+
 
     @ExceptionHandler(DatabaseException.class)
     public ResponseEntity<ErrorResponse> handleDatabaseException(DatabaseException ex) {
@@ -32,11 +41,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
-        ErrorResponse errorResponse = new ErrorResponse("Ocorreu um erro inesperado no servidor.", HttpStatus.INTERNAL_SERVER_ERROR.value());
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+//        ErrorResponse errorResponse = new ErrorResponse("Ocorreu um erro inesperado no servidor.", HttpStatus.INTERNAL_SERVER_ERROR.value());
+//        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
 
 

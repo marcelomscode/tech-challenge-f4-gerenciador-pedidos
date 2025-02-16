@@ -1,16 +1,16 @@
 package fiap.logistics.order.repositories;
 
 import fiap.logistics.configuration.DatabaseException;
-import fiap.logistics.deliveryman.exceptions.DeliveryManException;
 import fiap.logistics.order.dto.enums.EstadoPedido;
 import fiap.logistics.order.entities.persistence.Order;
 import fiap.logistics.order.repositories.db.PedidoJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.server.ServerErrorException;
+
+import java.util.List;
 
 @Slf4j
 @Repository
@@ -32,7 +32,7 @@ public class PedidoRepositoryImpl implements PedidoRepository {
 
         try {
             log.info("Alterando status do pedido: {}", idPedido + " para " + status);
-            var pedido = pedidoJpaRepository.findById(idPedido).orElseThrow();
+            var pedido = pedidoJpaRepository.findBynumeroPedido(idPedido);
             pedido.setStatus(EstadoPedido.EM_PREPARACAO_PARA_ENTREGA.getId());
             pedidoJpaRepository.save(pedido);
 
@@ -57,6 +57,11 @@ public class PedidoRepositoryImpl implements PedidoRepository {
             throw new DatabaseException("Ocorreu um erro ao buscar o pedido com o id: " + idPedido, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @Override
+    public List<Order> findAllByNumeroPedido(List<Long> ids) {
+        return pedidoJpaRepository.findAllByNumeroPedido(ids);
     }
 
 }

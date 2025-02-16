@@ -1,11 +1,21 @@
 package fiap.logistics.configuration;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.NOT_FOUND) // Define o status HTTP 404
+@Getter
+@Setter
 public class EntityNotFoundException extends RuntimeException {
-    public EntityNotFoundException(String message) {
+
+    private final String message;
+    private final HttpStatus httpStatus;
+
+    public EntityNotFoundException(String message, HttpStatus httpStatus) {
         super(message);
+        this.message = message;
+        this.httpStatus = httpStatus;
     }
+
 }
