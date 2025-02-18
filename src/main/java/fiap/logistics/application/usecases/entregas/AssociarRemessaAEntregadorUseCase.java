@@ -1,14 +1,16 @@
 package fiap.logistics.application.usecases.entregas;
 
-import fiap.logistics.deliveryorder.dto.enums.StatusRemessa;
-import fiap.logistics.deliveryorder.entities.persistences.RemessaPersistence;
-import fiap.logistics.domain.model.entrega.EntregadorDomain;
+import fiap.logistics.domain.enums.StatusRemessa;
+import fiap.logistics.domain.exception.DeliveryManException;
+import fiap.logistics.infrastructure.persistence.RemessaPersistence;
+import fiap.logistics.domain.model.EntregadorDomain;
 import fiap.logistics.domain.model.remessa.RemessaDomain;
-import fiap.logistics.domain.model.entrega.StatusEntregador;
-import fiap.logistics.domain.ports.*;
-import fiap.logistics.order.usecases.PedidoUsecase;
+import fiap.logistics.domain.enums.StatusEntregador;
+import fiap.logistics.application.usecases.pedidos.PedidoUsecase;
+import fiap.logistics.domain.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class AssociarRemessaAEntregadorUseCase {
             List<EntregadorDomain> entregadoresDisponiveis = entregadorDisponivelRepository.buscarEntregadoresDisponiveis();
             if (entregadoresDisponiveis.isEmpty()) {
                 log.info("Nenhum entregador disponível para processar.");
-                throw new Exception("Nenhum entregador disponível para processar.");
+                throw new DeliveryManException("Nenhum entregador disponível para processar.", HttpStatus.NOT_FOUND);
             }
 
             List<RemessaDomain> remessasPendentes = remessaRepository.buscarRemessasPorStatus(StatusRemessa.AGUARDANDO_ENTREGA);
@@ -79,7 +81,6 @@ public class AssociarRemessaAEntregadorUseCase {
             //Pela remessa, pegar o id do pedido e atualizar o status do pedido para "EM_ROTA_DE_ENTREGA"
             atualizaStatusPedidoPorRemessa(remessa.getIdRemessa(), StatusRemessa.EM_ROTA_DE_ENTREGA.getId());
 
-
             log.info("Remessa {} associada ao entregador {}", remessa.getIdRemessa(), entregador.getIdEntregador());
         }
     }
@@ -87,16 +88,15 @@ public class AssociarRemessaAEntregadorUseCase {
     public void atualizaStatusPedidoPorRemessa(Long idRemessa, Integer status) {
 
         //Pegar a lista de pedidos por remessa
-        //for na lista de remessa e pegar todos os NumerosPedidos
         var remessas = remessaRepository.buscarRemessasPorIdRemessa(String.valueOf(idRemessa));
 
-        List<Long> idNumeroPedido = remessas.stream().map(RemessaPersistence::getNumeroPedido).toList();
+        List<String> idNumeroPedido = remessas.stream().map(RemessaPersistence::getNumeroPedido).toList();
 
         //Passar todos os numeros de pedidos para o PedidoRepository
         var pedidos = pedidoUsecase.findAllByNumeroPedido(idNumeroPedido);
 
         for (var pedido : pedidos) {
-            pedidoUsecase.atualizaStatusPedido(pedido.getNumeroPedido(), status);
+            pedidoUsecase.atualizaStatusPedidoPorNumeroPedido(pedido.getNumeroPedido(), status);
         }
     }
 

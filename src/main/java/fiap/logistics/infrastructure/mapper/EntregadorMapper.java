@@ -1,11 +1,11 @@
 package fiap.logistics.infrastructure.mapper;
 
-import fiap.logistics.domain.model.entrega.EntregadorDisponivel;
-import fiap.logistics.domain.model.entrega.EntregadorDomain;
+import fiap.logistics.domain.model.EntregadorDomain;
+import fiap.logistics.infrastructure.persistence.EntregadorDisponivelPersistence;
 
-public class EntregadorMapper {
+public interface EntregadorMapper {
 
-    public static EntregadorDomain toDomain(EntregadorDisponivel entregadorEntity) {
+    static EntregadorDomain toDomain(EntregadorDisponivelPersistence entregadorEntity) {
         return new EntregadorDomain(entregadorEntity.getId(),
                 entregadorEntity.getIdEntregador().getId(),
                 entregadorEntity.getStatusEntregador());

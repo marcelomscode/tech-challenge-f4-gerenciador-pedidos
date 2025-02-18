@@ -1,11 +1,11 @@
 package fiap.logistics.application.usecases;
 
 import fiap.logistics.application.usecases.entregas.AssociarRemessaAEntregadorUseCase;
-import fiap.logistics.deliveryorder.dto.enums.StatusRemessa;
-import fiap.logistics.domain.model.entrega.EntregadorDomain;
+import fiap.logistics.domain.enums.StatusRemessa;
+import fiap.logistics.domain.model.EntregadorDomain;
 import fiap.logistics.domain.model.remessa.RemessaDomain;
-import fiap.logistics.domain.model.entrega.StatusEntregador;
-import fiap.logistics.domain.ports.*;
+import fiap.logistics.domain.enums.StatusEntregador;
+import fiap.logistics.domain.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static fiap.logistics.deliveryorder.dto.enums.StatusRemessa.AGUARDANDO_ENTREGA;
+import static fiap.logistics.domain.enums.StatusRemessa.AGUARDANDO_ENTREGA;
 import static org.mockito.Mockito.*;
 
 class AssociarRemessaAEntregadorUseCaseTest {

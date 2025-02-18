@@ -2,11 +2,9 @@ package fiap.logistics.infrastructure.scheduler;
 
 import fiap.logistics.application.usecases.entregas.AssociarRemessaAEntregadorUseCase;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 //@Component
 @RestController
@@ -19,12 +17,16 @@ public class RemessaScheduler {
         this.associarRemessaAEntregadorUseCase = associarRemessaAEntregadorUseCase;
     }
 
+
     @GetMapping("/associar")
-    public void associarRemessaAEntregador() {
+    public String associarRemessaAEntregador() {
         associarRemessaAEntregadorUseCase.executar();
+
+        return "Remessa associada a entregador";
+
     }
 
-//    @Scheduled(fixedRate = 10000) // 300000 ms = 5 minutos
+    @Scheduled(fixedRate = 100000) // 300000 ms = 5 minutos
     public void verificarEntregadoresDisponiveis() {
         associarRemessaAEntregadorUseCase.executar();
     }

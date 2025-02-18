@@ -1,6 +1,6 @@
 package fiap.logistics.adaptadores.controller.deliverymancontrollers;
 
-import fiap.logistics.entregador.dto.DeliveryManDTO;
+import fiap.logistics.api.dto.DeliveryManDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,6 +65,7 @@ class DeliveryManControllerTest {
                 .when()
                 .get(baseUrl + "/" + id)
                 .then()
+                .log().all()
                 .statusCode(404)
                 .extract().response();
 

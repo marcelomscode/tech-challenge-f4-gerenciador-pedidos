@@ -1,12 +1,12 @@
 package fiap.logistics.application.usecases;
 
-import fiap.logistics.entregador.dto.DeliveryManDTO;
-import fiap.logistics.entregador.entitydomain.DeliveryManDomain;
-import fiap.logistics.entregador.entitypersistence.DeliveryManPersistence;
-import fiap.logistics.entregador.exceptions.DeliveryManException;
-import fiap.logistics.entregador.mappers.DeliveryManMapper;
-import fiap.logistics.entregador.repository.DeliveryManRepository;
-import fiap.logistics.entregador.usecase.DeliveryManUseCase;
+import fiap.logistics.api.dto.DeliveryManDTO;
+import fiap.logistics.domain.model.DeliveryManDomain;
+import fiap.logistics.infrastructure.persistence.DeliveryManPersistence;
+import fiap.logistics.domain.exception.DeliveryManException;
+import fiap.logistics.infrastructure.mapper.DeliveryManMapper;
+import fiap.logistics.domain.repository.DeliveryManRepository;
+import fiap.logistics.application.usecases.entregadores.DeliveryManUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

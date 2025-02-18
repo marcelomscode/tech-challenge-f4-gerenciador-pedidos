@@ -1,8 +1,8 @@
 package fiap.logistics.application.usecases.entregadores;
 
-import fiap.logistics.entregador.exceptions.DeliveryManException;
-import fiap.logistics.domain.model.entrega.StatusEntregador;
-import fiap.logistics.domain.ports.EntregadorDisponivelRepository;
+import fiap.logistics.domain.exception.DeliveryManException;
+import fiap.logistics.domain.enums.StatusEntregador;
+import fiap.logistics.domain.repository.EntregadorDisponivelRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class EntregadorDisponivelUseCase {
         try {
             entregadorDisponivelRepository.salvarEntregador(id);
         } catch (Exception e) {
-            throw new DeliveryManException("Error getting DeliveryMan", HttpStatus.BAD_REQUEST);
+            throw new DeliveryManException("Error getting DeliveryMan: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

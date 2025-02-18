@@ -1,5 +1,5 @@
 # Etapa 1: Usando uma imagem base do Java
-FROM openjdk:17-jdk-slim as build
+FROM openjdk:17-jdk-slim AS build
 
 # Diretório de trabalho dentro do container
 WORKDIR /app
